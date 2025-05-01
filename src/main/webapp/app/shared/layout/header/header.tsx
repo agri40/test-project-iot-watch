@@ -2,13 +2,14 @@ import './header.scss';
 
 import React, { useState } from 'react';
 import { Storage, Translate } from 'react-jhipster';
-import { Collapse, Nav, Navbar, NavbarToggler } from 'reactstrap';
+import { Collapse, Nav, Navbar, NavbarToggler, NavItem } from 'reactstrap';
 import LoadingBar from 'react-redux-loading-bar';
 
 import { useAppDispatch } from 'app/config/store';
 import { setLocale } from 'app/shared/reducers/locale';
 import { AccountMenu, AdminMenu, EntitiesMenu, LocaleMenu } from '../menus';
 import { Brand, Home } from './header-components';
+import { ThemeToggle } from 'app/shared/theme/theme-toggle';
 
 export interface IHeaderProps {
   isAuthenticated: boolean;
@@ -41,7 +42,6 @@ const Header = (props: IHeaderProps) => {
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
-  /* jhipster-needle-add-element-to-menu - JHipster will add new menu items here */
 
   return (
     <div id="app-header">
@@ -55,6 +55,10 @@ const Header = (props: IHeaderProps) => {
             <Home />
             {props.isAuthenticated && <EntitiesMenu />}
             {props.isAuthenticated && props.isAdmin && <AdminMenu showOpenAPI={props.isOpenAPIEnabled} />}
+            {/* Add ThemeToggle component */}
+            <NavItem className="d-flex align-items-center">
+              <ThemeToggle />
+            </NavItem>
             <LocaleMenu currentLocale={props.currentLocale} onClick={handleLocaleChange} />
             <AccountMenu isAuthenticated={props.isAuthenticated} />
           </Nav>
