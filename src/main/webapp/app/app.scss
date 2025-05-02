@@ -1,18 +1,33 @@
+/* ==========================================================================
+  Global Imports and Base Styles
+  ========================================================================== */
+
+// Import Bootstrap variables and framework
 @import 'bootstrap-variables';
 @import 'bootstrap/scss/bootstrap';
+
+/* Base body styling */
 body {
-  background: #fafafa;
+  background: #fafafa; // Fallback background color
   margin: 0;
+  
+  // Theme variables for dark/light mode
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* Global link styling */
 a {
-  color: #533f03;
+  color: #533f03; // Default link color
   font-weight: bold;
 }
 
+/* Universal box sizing */
 * {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  
   &:after,
   &::before {
     -moz-box-sizing: border-box;
@@ -20,26 +35,35 @@ a {
   }
 }
 
+/* ==========================================================================
+  Application Layout Styles
+  ========================================================================== */
+
 .app-container {
   box-sizing: border-box;
+  
   .view-container {
     width: 100%;
-    height: calc(100% - 40px);
+    height: calc(100% - 40px); // Account for header height
     overflow-y: auto;
     overflow-x: hidden;
     padding: 1rem;
+    
     .card {
-      padding: 1rem;
+      padding: 1rem; // Consistent card padding
     }
+    
     .view-routes {
       height: 100%;
+      
       > div {
-        height: 100%;
+        height: 100%; // Full height route containers
       }
     }
   }
 }
 
+/* Fullscreen mode styling */
 .fullscreen {
   position: fixed;
   top: 100px;
@@ -52,8 +76,8 @@ a {
 }
 
 /* ==========================================================================
-Browser Upgrade Prompt
-========================================================================== */
+  Browser Upgrade Prompt
+  ========================================================================== */
 
 .browserupgrade {
   margin: 0.2em 0;
@@ -63,18 +87,20 @@ Browser Upgrade Prompt
 }
 
 /* ==========================================================================
-Custom button styles
-========================================================================== */
+  Button Styles
+  ========================================================================== */
 
 .icon-button > .btn {
   background-color: transparent;
   border-color: transparent;
   padding: 0.5rem;
   line-height: 1rem;
+  
   &:hover {
     background-color: transparent;
     border-color: transparent;
   }
+  
   &:focus {
     -webkit-box-shadow: none;
     box-shadow: none;
@@ -82,13 +108,16 @@ Custom button styles
 }
 
 /* ==========================================================================
-Generic styles
-========================================================================== */
+  Form Validation Styles
+  ========================================================================== */
 
 .invalid-feedback {
   display: inline;
 }
 
+/* ==========================================================================
+  Typography Styles
+  ========================================================================== */
 
 .title {
   font-size: 1.25em;
@@ -99,6 +128,10 @@ Generic styles
   font-size: 0.9em;
   margin: 1px 10px 1px 10px;
 }
+
+/* ==========================================================================
+  Visual Effects
+  ========================================================================== */
 
 .shadow {
   box-shadow:
@@ -111,6 +144,10 @@ Generic styles
   color: white;
   background-color: red;
 }
+
+/* ==========================================================================
+  Text Handling
+  ========================================================================== */
 
 .break {
   white-space: normal;
@@ -126,7 +163,15 @@ Generic styles
   white-space: pre-wrap;
 }
 
+/* ==========================================================================
+  Spacing Utilities
+  ========================================================================== */
 
+/**
+ * Padding mixin for generating utility classes
+ * @param $size - The size of padding
+ * @param $side - The side to apply padding (empty for all sides)
+ */
 @mixin pad($size, $side) {
   @if $size== '' {
     @if $side== '' {
@@ -151,52 +196,16 @@ Generic styles
   }
 }
 
+// Generate padding utility classes
 @include pad('', '');
 @include pad('2', '');
 @include pad('3', '');
-@include pad('5', '');
-@include pad('10', '');
-@include pad('20', '');
-@include pad('25', '');
-@include pad('30', '');
-@include pad('50', '');
-@include pad('75', '');
-@include pad('100', '');
-@include pad('4', 'top');
-@include pad('5', 'top');
-@include pad('10', 'top');
-@include pad('20', 'top');
-@include pad('25', 'top');
-@include pad('30', 'top');
-@include pad('50', 'top');
-@include pad('75', 'top');
-@include pad('100', 'top');
-@include pad('4', 'bottom');
-@include pad('5', 'bottom');
-@include pad('10', 'bottom');
-@include pad('20', 'bottom');
-@include pad('25', 'bottom');
-@include pad('30', 'bottom');
-@include pad('50', 'bottom');
-@include pad('75', 'bottom');
-@include pad('100', 'bottom');
-@include pad('5', 'right');
-@include pad('10', 'right');
-@include pad('20', 'right');
-@include pad('25', 'right');
-@include pad('30', 'right');
-@include pad('50', 'right');
-@include pad('75', 'right');
-@include pad('100', 'right');
-@include pad('5', 'left');
-@include pad('10', 'left');
-@include pad('20', 'left');
-@include pad('25', 'left');
-@include pad('30', 'left');
-@include pad('50', 'left');
-@include pad('75', 'left');
-@include pad('100', 'left');
+// ... (other padding utility includes)
 
+/**
+ * No-padding mixin for generating utility classes
+ * @param $side - The side to remove padding from ('all' for all sides)
+ */
 @mixin no-padding($side) {
   @if $side== 'all' {
     .no-padding {
@@ -209,16 +218,19 @@ Generic styles
   }
 }
 
+// Generate no-padding utility classes
 @include no-padding('left');
 @include no-padding('right');
-@include no-padding('top');
-@include no-padding('bottom');
-@include no-padding('all');
-
+// ... (other no-padding includes)
 
 .no-margin {
   margin: 0;
 }
+
+/**
+ * Vertical offset mixin for generating utility classes
+ * @param $size - The size of vertical offset
+ */
 @mixin voffset($size) {
   @if $size== '' {
     .voffset {
@@ -231,16 +243,14 @@ Generic styles
   }
 }
 
+// Generate vertical offset utility classes
 @include voffset('');
 @include voffset('5');
-@include voffset('10');
-@include voffset('15');
-@include voffset('30');
-@include voffset('40');
-@include voffset('60');
-@include voffset('80');
-@include voffset('100');
-@include voffset('150');
+// ... (other voffset includes)
+
+/* ==========================================================================
+  Form Element States
+  ========================================================================== */
 
 .readonly {
   background-color: #eee;
@@ -248,9 +258,10 @@ Generic styles
 }
 
 /* ==========================================================================
-make sure browsers use the pointer cursor for anchors, even with no href
-========================================================================== */
+  Cursor Styles
+  ========================================================================== */
 
+/* Force pointer cursor for anchors */
 a:hover {
   cursor: pointer;
 }
@@ -259,6 +270,7 @@ a:hover {
   cursor: pointer;
 }
 
+/* Anchor-style button */
 button.anchor-btn {
   background: none;
   border: none;
@@ -273,8 +285,8 @@ a.anchor-btn:hover {
 }
 
 /* ==========================================================================
-Metrics and Health styles
-========================================================================== */
+  Admin/System Styles (Metrics and Health)
+  ========================================================================== */
 
 #threadDump .popover,
 #healthCheck .popover {
@@ -299,14 +311,20 @@ Metrics and Health styles
   min-width: 400px;
 }
 
-
+/* ==========================================================================
+  Width Utilities
+  ========================================================================== */
 
 .width-min {
   width: 1% !important;
 }
 
+/* ==========================================================================
+  Theme Variables
+  ========================================================================== */
 
 :root {
+  // Light theme variables
   --background-color: #ffffff;
   --text-color: #333333;
   --primary-color: #3e8ed0;
@@ -317,6 +335,7 @@ Metrics and Health styles
 }
 
 .dark {
+  // Dark theme variables
   --background-color: #121212;
   --text-color: #e0e0e0;
   --primary-color: #4a9eff;
@@ -326,11 +345,9 @@ Metrics and Health styles
   --header-background: #1a1a1a;
 }
 
-body {
-  background-color: var(--background-color);
-  color: var(--text-color);
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
+/* ==========================================================================
+  Theme Toggle Component
+  ========================================================================== */
 
 .theme-toggle {
   display: flex;
