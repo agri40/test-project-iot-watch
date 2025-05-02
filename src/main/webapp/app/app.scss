@@ -314,54 +314,110 @@ http://stackoverflow.com/questions/23436430/bootstrap-3-input-group-100-width */
 
 /* jhipster-needle-scss-add-main JHipster will add new css style */
 
+/* 
+ * Dark Mode CSS Variables
+ * 
+ * This file defines CSS variables for both light and dark modes.
+ * The variables are applied based on the presence of the 'dark' class
+ * on the HTML document element, which is controlled by the ThemeProvider.
+ */
+
+/* Light mode variables (default) */
 :root {
-  // Light mode variables
+  /* Base colors */
   --background-color: #ffffff;
   --text-color: #333333;
   --primary-color: #3e8ed0;
   --secondary-color: #48c78e;
   --border-color: #dbdbdb;
+  
+  /* Component-specific colors */
   --card-background: #ffffff;
   --header-background: #f5f5f5;
+  --input-background: #ffffff;
+  --input-text: #333333;
+  --button-background: #3e8ed0;
+  --button-text: #ffffff;
 }
 
+/* Dark mode variables (applied when .dark class is present) */
 .dark {
-  // Dark mode variables
+  /* Base colors */
   --background-color: #121212;
   --text-color: #e0e0e0;
   --primary-color: #4a9eff;
   --secondary-color: #50d5a1;
   --border-color: #444444;
+  
+  /* Component-specific colors */
   --card-background: #1e1e1e;
   --header-background: #1a1a1a;
+  --input-background: #2a2a2a;
+  --input-text: #e0e0e0;
+  --button-background: #4a9eff;
+  --button-text: #ffffff;
 }
 
-// Apply variables to elements
+/* Apply variables to elements */
 body {
   background-color: var(--background-color);
   color: var(--text-color);
+  /* Add transition for smooth theme switching */
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-// Add these styles for the theme toggle
+/* Card styling */
+.jh-card {
+  background-color: var(--card-background);
+  border-color: var(--border-color);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Input styling */
+input, select, textarea {
+  background-color: var(--input-background);
+  color: var(--input-text);
+  border-color: var(--border-color);
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Button styling */
+.btn-primary {
+  background-color: var(--button-background);
+  color: var(--button-text);
+  border-color: var(--button-background);
+}
+
+/* Theme toggle styling */
 .theme-toggle {
   display: flex;
   align-items: center;
   gap: 8px;
+  margin: 0 15px;
   
+  /* Dropdown styling */
   .theme-select {
     padding: 4px 8px;
     border-radius: 4px;
     border: 1px solid var(--border-color);
     background-color: var(--card-background);
     color: var(--text-color);
+    font-size: 0.875rem;
   }
   
+  /* Toggle button styling */
   .theme-button {
     padding: 4px 8px;
     border-radius: 4px;
     border: 1px solid var(--border-color);
     background-color: var(--card-background);
+    color: var(--text-color);
     cursor: pointer;
+    transition: background-color 0.2s ease;
+    
+    &:hover {
+      background-color: var(--primary-color);
+      color: #ffffff;
+    }
   }
 }

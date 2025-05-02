@@ -16,19 +16,25 @@ import { hasAnyAuthority } from 'app/shared/auth/private-route';
 import ErrorBoundary from 'app/shared/error/error-boundary';
 import { AUTHORITIES } from 'app/config/constants';
 import AppRoutes from 'app/routes';
-// Import the ThemeProvider
+// Import the ThemeProvider for dark mode support
 import { ThemeProvider } from 'app/shared/theme/theme-provider';
 
 const baseHref = document.querySelector('base').getAttribute('href').replace(/\/$/, '');
 
+/**
+ * Main application component
+ * Wrapped with ThemeProvider to enable dark mode support throughout the app
+ */
 export const App = () => {
   const dispatch = useAppDispatch();
 
+  // Load user session and application profile on mount
   useEffect(() => {
     dispatch(getSession());
     dispatch(getProfile());
   }, []);
 
+  // Get application state from Redux store
   const currentLocale = useAppSelector(state => state.locale.currentLocale);
   const isAuthenticated = useAppSelector(state => state.authentication.isAuthenticated);
   const isAdmin = useAppSelector(state => hasAnyAuthority(state.authentication.account.authorities, [AUTHORITIES.ADMIN]));
@@ -38,7 +44,7 @@ export const App = () => {
 
   const paddingTop = '60px';
   return (
-    // Wrap the entire application with ThemeProvider
+    // Wrap the entire application with ThemeProvider to enable dark mode
     <ThemeProvider defaultTheme="system">
       <BrowserRouter basename={baseHref}>
         <div className="app-container" style={{ paddingTop }}>
