@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 /* Components */
 import TemperatureCrad from "./TemperatureCrad";
@@ -7,6 +7,8 @@ import TemperatureChart from "./TemperatureChart";
 /* API */
 import fetchLatestTemperature from "../api/latest";
 import fetchTemperatureHistory from "../api/history";
+import { MoonIcon, SunIcon } from "lucide-react";
+import { useDarkMode } from "../hooks/useContextDarkMode";
 
 const Content = () => {
   // states to store the latest temperature data
@@ -23,13 +25,13 @@ const Content = () => {
         data: [],
         fill: false,
         borderColor: "#ff811f",
-        tension: 0.1
-      }
+        tension: 0.1,
+      },
     ],
     options: {
       responsive: true,
       maintainAspectRatio: false,
-    }
+    },
   });
 
   // Function to fetch the latest temperature
@@ -43,7 +45,7 @@ const Content = () => {
     } catch (error) {
       console.error("Error getting latest temperature: ", error);
     }
-  }
+  };
 
   // Function to fetch the temperature history for the last 10 hours
   const getTemperatureHistory = async () => {
@@ -65,7 +67,7 @@ const Content = () => {
     } catch (error) {
       console.error("Error getting temperature history: ", error);
     }
-  }
+  };
 
   // Auto-refresh every 10 seconds
   useEffect(() => {
@@ -80,17 +82,36 @@ const Content = () => {
     return () => clearInterval(interval);
   }, []);
 
+  //handle dark mode
+  const { darkMode, toggleDarkMode } = useDarkMode();
 
   return (
     <div className="flex flex-col gap-8 py-12 px-6">
-      <div className="w-full flex flex-col gap-2 text-left">
-        <h1 className="font-bold text-3xl">
-          Temperature Dashboard
-        </h1>
-        <p className="text-sm font-light text-gray-400">
-          Monitor real-time temperature data and historical trends
-        </p>
-      </div>
+      <header className="flex justify-between items-center md:flex-row md:items-start">
+        <div className="flex flex-col gap-2 text-left">
+          <h1 className="font-bold text-3xl">Temperature Dashboard</h1>
+          <p className="text-sm font-light text-gray-400">
+            Monitor real-time temperature data and historical trends
+          </p>
+        </div>
+
+        <div className="btn-dark-mode">
+          <button
+            className="bg-gray-800 text-white px-4 py-2 rounded"
+            onClick={toggleDarkMode}
+          >
+            {darkMode ? (
+              <span>
+                <SunIcon className="w-4 h-4" />
+              </span>
+            ) : (
+              <span>
+                <MoonIcon className="w-4 h-4" />
+              </span>
+            )}
+          </button>
+        </div>
+      </header>
 
       <div className="grid gap-4 grid-cols-1 xl:grid-cols-[384px_1fr]">
         <TemperatureCrad
@@ -105,7 +126,7 @@ const Content = () => {
         />
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Content;

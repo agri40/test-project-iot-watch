@@ -12,6 +12,16 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --body-bg: #ffffff;
+  --dark-color: #282c34;
+  --light-color: #fff;
+}
+
+[data-theme="dark"] {
+  --body-bg: #282c34;
+  --dark-color: #ffffff;
+  --light-color: #282c34;
 }
 
 a {
@@ -29,6 +39,12 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+}
+
+.app {
+  transition: ease-in-out 0.3s;
+  background-color: var(--body-bg) !important;
+  color: var(--dark-color);
 }
 
 button {
