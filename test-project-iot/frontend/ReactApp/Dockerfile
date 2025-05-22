@@ -1,14 +1,17 @@
-# using an alpine node js image fo better performance
+# Use lightweight Node.js image
 FROM node:24-alpine3.20
 
-# this is a working directory
-WORKDIR  /react-app
+# Set working directory inside the container
+WORKDIR /app
 
+# Copy project files into the container
+COPY . .
 
-# copying the content of the root folder to react-app that locates inside of the container
-COPY . /react-app
+# Install dependencies
+RUN npm install
 
+# Expose Vite dev server port
+EXPOSE 5173
 
-RUN npm create vite @ latest 
-
-CMD ["npm install" , "npm run dev"]
+# Start the dev server
+CMD ["npm", "run", "dev"]
