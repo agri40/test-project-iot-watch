@@ -9,3 +9,6 @@ WORKDIR  /react-app
 COPY . /react-app
 
 
+RUN npm create vite @ latest 
+
+CMD ["npm install" , "npm run dev"]
